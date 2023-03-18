@@ -1,7 +1,7 @@
-# A simple laravel package that generates CRUD operation related files
+# SCRUD
 
 
-Generate CRUD related files and routes using a single command.
+A simple laravel package that generates CRUD operation related files using a single command.
 ## Environment
 This package was tested using `php 8.1` and `laravel 10.0`
 
@@ -11,12 +11,12 @@ This package was tested using `php 8.1` and `laravel 10.0`
 Include the repository in your `composer.json` file
 
 ```json
-    "repositories": [
-        {
-            "url": "https://github.com/mrshoikot/scrud.git",
-            "type": "git"
-        }
-    ],
+"repositories": [
+    {
+        "url": "https://github.com/mrshoikot/scrud.git",
+        "type": "git"
+    }
+],
 ```
 
 You can install the package via composer:
