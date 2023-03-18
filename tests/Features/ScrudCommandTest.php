@@ -118,7 +118,7 @@ class ScrudCommandTest extends TestCase
 
     /**
      * Test if table is generated
-     * 
+     *
      * @return void
      */
     public function testGenerateTable()
@@ -126,7 +126,6 @@ class ScrudCommandTest extends TestCase
         $tableName = Str::plural(Str::snake($this->model));
         $this->assertTrue(\Schema::hasTable($tableName));
     }
-
 
     /**
      * Test if view files are generated correctly
