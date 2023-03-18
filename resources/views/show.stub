@@ -1,0 +1,26 @@
+@extends('{{tableName}}.layout')
+
+@section('content')
+    <div class="container">
+        <h1>{{modelName}}</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{${{modelNameCamelSingular}}->id}}</td>
+            </tr>
+            {{fields}}
+            </tbody>
+        </table>
+
+        <div class="mb-3">
+            <a href="{{route('{{tableName}}.edit', ${{modelNameCamelSingular}})}}" class="btn btn-warning">Edit {{modelName}}</a>
+            <form action="{{route('{{tableName}}.destroy', ${{modelNameCamelSingular}})}}" method="POST" style="display: inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this {{modelName}}?')">Delete {{modelName}}</button>
+            </form>
+        </div>
+    </div>
+@endsection

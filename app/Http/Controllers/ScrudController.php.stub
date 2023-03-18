@@ -45,39 +45,39 @@ class {{modelName}}Controller extends Controller
 
     
     /**
-     * Display the specified {{modelNameCamel}}.
+     * Display the specified {{modelNameCamelSingular}}.
      * 
-     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamelSingular}}
      * @return \Illuminate\Contracts\View\View
      */
-    public function show({{modelName}} ${{modelNameCamel}})
+    public function show({{modelName}} ${{modelNameCamelSingular}})
     {
-        return view('scrud.{{tableName}}.show', compact('{{modelNameCamel}}'));
+        return view('scrud.{{tableName}}.show', compact('{{modelNameCamelSingular}}'));
     }
 
 
     /**
-     * Show the form for editing the specified {{modelNameCamel}}.
+     * Show the form for editing the specified {{modelNameCamelSingular}}.
      * 
-     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamelSingular}}
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit({{modelName}} ${{modelNameCamel}})
+    public function edit({{modelName}} ${{modelNameCamelSingular}})
     {
-        return view('scrud.{{tableName}}.edit', compact('{{modelNameCamel}}'));
+        return view('scrud.{{tableName}}.edit', compact('{{modelNameCamelSingular}}'));
     }
 
 
     /**
-     * Update the specified {{modelNameCamel}} in storage.
+     * Update the specified {{modelNameCamelSingular}} in storage.
      * 
      * @param  \App\Http\Requests\{{modelName}}Request  $request
-     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamelSingular}}
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameCamel}})
+    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameCamelSingular}})
     {
-        ${{modelNameCamel}}->update($request->all());
+        ${{modelNameCamelSingular}}->update($request->all());
         return redirect()->route('{{tableName}}.index')->with('success', '{{modelNameCapitalized}} updated successfully!');
     }
     

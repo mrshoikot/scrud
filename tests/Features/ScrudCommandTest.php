@@ -111,4 +111,27 @@ class ScrudCommandTest extends TestCase
             $this->fail();
         }
     }
+
+
+    /**
+     * Test if view files are generated correctly
+     * 
+     * @return void
+     */
+    public function testGenerateViewFiles()
+    {
+        $viewFiles = [
+            'index.blade.php',
+            'create.blade.php',
+            'edit.blade.php',
+            'show.blade.php',
+            'form.blade.php',
+            'layout.blade.php'
+        ];
+
+        foreach ($viewFiles as $viewFile) {
+            $expectedDestination = resource_path('views/'.Str::snake(Str::plural($this->model)).'/'.$viewFile);
+            $this->assertFileExists($expectedDestination);
+        }
+    }
 }

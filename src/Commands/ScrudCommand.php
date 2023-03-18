@@ -35,6 +35,7 @@ class ScrudCommand extends Command
         $this->generateRequest();
         $this->generateModel();
         $this->generateMigration();
+        $this->generateViewFiles();
 
         return self::SUCCESS;
     }
@@ -162,6 +163,26 @@ class ScrudCommand extends Command
         $this->processAndPublishStub($stub, $destination);
     }
 
+
+    /**
+     * Generate the view files
+     *
+     * @return void
+     */
+    public function generateViewFiles()
+    {
+        File::makeDirectory(resource_path('views/'.Str::snake(Str::plural($this->modelName))), 0755, true, true);
+        $stubs = File::glob(__DIR__.'/../../resources/views/*');
+
+        foreach ($stubs as $stub) {
+            $destination = resource_path('views/'.Str::snake(Str::plural($this->modelName)).'/'.basename($stub, ".stub").'.blade.php');
+            $this->processAndPublishStub($stub, $destination);
+        }
+
+    }
+
+
+
     /**
      * Replace the placeholders in the stub with the actual values
      *
@@ -176,12 +197,14 @@ class ScrudCommand extends Command
             [
                 '{{modelName}}',
                 '{{modelNameCamel}}',
+                '{{modelNameCamelSingular}}',
                 '{{modelNameCapitalized}}',
                 '{{tableName}}',
             ],
             [
                 $this->modelName,
                 Str::camel(Str::plural($this->modelName)),
+                Str::camel($this->modelName),
                 Str::ucfirst(Str::snake($this->modelName)),
                 $this->tableName,
             ],

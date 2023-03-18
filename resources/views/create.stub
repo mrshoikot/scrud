@@ -1,0 +1,9 @@
+@extends('{{tableName}}.layout')
+
+@section('content')
+    <div class="container">
+        <h1>Create {{modelName}}</h1>
+
+        @include('{{tableName}}.form', ['action' => route('{{tableName}}.store'), 'method' => 'POST'])
+    </div>
+@endsection

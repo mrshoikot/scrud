@@ -1,0 +1,8 @@
+<form action="{{$action}}" method="{{$method == "PUT" ? "POST" : $method}}">
+    @csrf
+    @if($method == 'PUT')
+        @method('PUT')
+    @endif
+    @yield('fields')
+    <button type="submit">Submit</button>
+</form>
