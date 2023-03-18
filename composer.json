@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "mrshoikot/scrud",
+    "description": "A simple laravel package that generates CRUD operation related files",
     "keywords": [
-        ":vendor_name",
+        "mrshoikot",
         "laravel",
-        ":package_slug"
+        "scrud"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/mrshoikot/scrud",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "mrshoikot",
+            "email": "mrshoikot@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Mrshoikot\\Scrud\\": "src",
+            "Mrshoikot\\Scrud\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Mrshoikot\\Scrud\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Mrshoikot\\Scrud\\ScrudServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Scrud": "Mrshoikot\\Scrud\\Facades\\Scrud"
             }
         }
     },
