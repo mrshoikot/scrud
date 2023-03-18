@@ -2,11 +2,11 @@
 
 namespace Mrshoikot\Scrud\Tests\Feature;
 
-use Orchestra\Testbench\TestCase;
 use Illuminate\Support\Facades\Artisan;
-use Mrshoikot\Scrud\ScrudServiceProvider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Mrshoikot\Scrud\ScrudServiceProvider;
+use Orchestra\Testbench\TestCase;
 
 class ScrudCommandTest extends TestCase
 {
@@ -20,18 +20,18 @@ class ScrudCommandTest extends TestCase
         $this->model = 'ScrudTestModel';
 
         // Create Requests directory if it doesn't exist (necessary for testbench)
-        if (!File::isDirectory(app_path("Http/Requests"))) {
-            File::makeDirectory(app_path("Http/Requests"));
+        if (! File::isDirectory(app_path('Http/Requests'))) {
+            File::makeDirectory(app_path('Http/Requests'));
         }
 
         // Delete existing files for this model
-        File::delete(app_path("Models/".$this->model.".php"));
-        File::delete(app_path("Http/Controllers/".$this->model."Controller.php"));
-        File::delete(app_path("Http/Requests/".$this->model."Request.php"));
+        File::delete(app_path('Models/'.$this->model.'.php'));
+        File::delete(app_path('Http/Controllers/'.$this->model.'Controller.php'));
+        File::delete(app_path('Http/Requests/'.$this->model.'Request.php'));
 
         // Find all existing migrations for the model and delete them
         $migrations = File::glob(
-            database_path("migrations/*create_".Str::plural(Str::snake($this->model))."_table.php")
+            database_path('migrations/*create_'.Str::plural(Str::snake($this->model)).'_table.php')
         );
 
         foreach ($migrations as $migration) {
@@ -39,10 +39,8 @@ class ScrudCommandTest extends TestCase
         }
 
         Artisan::call('scrud', ['model' => $this->model]);
-
     }
 
-    
     protected function getPackageProviders($app)
     {
         return [
@@ -50,12 +48,10 @@ class ScrudCommandTest extends TestCase
         ];
     }
 
-    
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
     }
-
 
     /**
      * Test if the controller is generated correctly
@@ -72,7 +68,7 @@ class ScrudCommandTest extends TestCase
 
     /**
      * Test if the request is generated correctly
-     * 
+     *
      * @return void
      */
     public function testGenerateRequest()
@@ -82,10 +78,9 @@ class ScrudCommandTest extends TestCase
         $this->assertStringContainsString($this->model, file_get_contents($expectedDestination));
     }
 
-
     /**
      * Test if the model is generated correctly
-     * 
+     *
      * @return void
      */
     public function testGenerateModel()
@@ -95,10 +90,9 @@ class ScrudCommandTest extends TestCase
         $this->assertStringContainsString($this->model, file_get_contents($expectedDestination));
     }
 
-
     /**
      * Test if the migration is generated correctly
-     * 
+     *
      * @return void
      */
     public function testGenerateMigration()
@@ -106,10 +100,10 @@ class ScrudCommandTest extends TestCase
         $tableName = Str::plural(Str::snake($this->model));
         $migration_file = File::glob(
             database_path(
-                'migrations/*create_' . $tableName . '_table.php'
+                'migrations/*create_'.$tableName.'_table.php'
             )
         );
-        
+
         if ($migration_file) {
             $this->assertFileExists($migration_file[0]);
             $this->assertStringContainsString($tableName, file_get_contents($migration_file[0]));
@@ -117,5 +111,4 @@ class ScrudCommandTest extends TestCase
             $this->fail();
         }
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Mrshoikot\Scrud\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Mrshoikot\Scrud\ScrudServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -11,7 +10,6 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
-
     }
 
     protected function getPackageProviders($app)
