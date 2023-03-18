@@ -8,6 +8,7 @@
             <tbody>
             <tr>
                 <th>ID</th>
+                <td>{{${{modelNameCamelSingular}}->name}}</td>
                 <td>{{${{modelNameCamelSingular}}->id}}</td>
             </tr>
             </tbody>

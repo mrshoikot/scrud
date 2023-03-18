@@ -3,6 +3,6 @@
     @if($method == 'PUT')
         @method('PUT')
     @endif
-    @yield('fields')
+    <input type="text" name="name" value="{{isset($name) ? $name : null}}">
     <button type="submit">Submit</button>
 </form>

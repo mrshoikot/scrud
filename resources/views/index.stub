@@ -12,6 +12,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>Name</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -19,6 +20,7 @@
             @foreach(${{modelNameCamel}} as ${{modelNameCamelSingular}})
                 <tr>
                     <td>{{${{modelNameCamelSingular}}->id}}</td>
+                    <td>{{${{modelNameCamelSingular}}->name}}</td>
                     <td>
                         <a href="{{route('{{tableName}}.show', ${{modelNameCamelSingular}})}}" class="btn btn-primary">View</a>
                         <a href="{{route('{{tableName}}.edit', ${{modelNameCamelSingular}})}}" class="btn btn-warning">Edit</a>

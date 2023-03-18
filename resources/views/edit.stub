@@ -4,6 +4,6 @@
     <div class="container">
         <h1>Edit {{modelName}}</h1>
 
-        @include('{{tableName}}.form', ['action' => route('{{tableName}}.update', ${{modelNameCamelSingular}}), 'method' => 'PUT'])
+        @include('{{tableName}}.form', ['action' => route('{{tableName}}.update', ${{modelNameCamelSingular}}), 'method' => 'PUT', 'name' => ${{modelNameCamelSingular}}->name])
     </div>
 @endsection
