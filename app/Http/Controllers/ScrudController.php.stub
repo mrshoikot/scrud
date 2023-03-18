@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\{{modelName}};
+use App\Http\Requests\{{modelName}}Request;
+use Illuminate\Http\Request;
+
+class {{modelName}}Controller extends Controller
+{
+    /**
+     * Display a listing of the {{modelNameCamel}}.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function index()
+    {
+        ${{modelNameCamel}} = {{modelName}}::all();
+        return view('scrud.{{tableName}}.index', compact('{{modelNameCamel}}'));
+    }
+
+
+    /**
+     * Show the form for creating a new {{modelNameCamel}}.
+     * 
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function create()
+    {
+        return view('scrud.{{tableName}}.create');
+    }
+
+
+    /**
+     * Store a newly created {{modelNameCamel}} in storage.
+     * 
+     * @param  \App\Http\Requests\{{modelName}}Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store({{modelName}}Request $request)
+    {
+        {{modelName}}::create($request->all());
+        return redirect()->route('{{tableName}}.index')->with('success', '{{modelNameCapitalized}} created successfully!');
+    }
+
+    
+    /**
+     * Display the specified {{modelNameCamel}}.
+     * 
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function show({{modelName}} ${{modelNameCamel}})
+    {
+        return view('scrud.{{tableName}}.show', compact('{{modelNameCamel}}'));
+    }
+
+
+    /**
+     * Show the form for editing the specified {{modelNameCamel}}.
+     * 
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function edit({{modelName}} ${{modelNameCamel}})
+    {
+        return view('scrud.{{tableName}}.edit', compact('{{modelNameCamel}}'));
+    }
+
+
+    /**
+     * Update the specified {{modelNameCamel}} in storage.
+     * 
+     * @param  \App\Http\Requests\{{modelName}}Request  $request
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameCamel}})
+    {
+        ${{modelNameCamel}}->update($request->all());
+        return redirect()->route('{{tableName}}.index')->with('success', '{{modelNameCapitalized}} updated successfully!');
+    }
+    
+
+    /**
+     * Remove the specified {{modelNameCamel}} from storage.
+     * 
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy({{modelName}} ${{modelNameCamel}})
+    {
+        ${{modelNameCamel}}->delete();
+        return redirect()->route('{{tableName}}.index')->with('success', '{{modelNameCapitalized}} deleted successfully!');
+    }
+}

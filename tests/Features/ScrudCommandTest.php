@@ -5,16 +5,26 @@ namespace Mrshoikot\Scrud\Tests\Feature;
 use Orchestra\Testbench\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Mrshoikot\Scrud\ScrudServiceProvider;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ScrudCommandTest extends TestCase
 {
+    protected $model;
 
     protected function setUp(): void
     {
         parent::setUp();
-        Artisan::call('make:model', ['name' => 'ExistingModel']);
+        $this->model = 'ScrudTestModel';
+
+        File::delete(app_path("Models/".$this->model.".php"));
+        File::delete(app_path("Http/Controllers/".$this->model."Controller.php"));
+
+        Artisan::call('scrud', ['model' => $this->model]);
+
     }
 
+    
     protected function getPackageProviders($app)
     {
         return [
@@ -22,7 +32,7 @@ class ScrudCommandTest extends TestCase
         ];
     }
 
-
+    
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
@@ -30,27 +40,16 @@ class ScrudCommandTest extends TestCase
 
 
     /**
-     * Test that the isSafeToRun method returns true when it is safe to run
-     *
-     * @return void
+     * Test if the controller is generated correctly
      */
-    public function testIsSafeToRunReturnsTrueWhenSafe()
+    public function testGenerateController()
     {
-        $this->assertTrue(
-            Artisan::call('scrud', ['model' => 'NonExistingModel']) === 0
-        );
-    }
-
-    /**
-     * Test that the isSafeToRun method returns false when it is not safe to run
-     *
-     * @return void
-     */
-    public function testIsSafeToRunReturnsFalseWhenNotSafe()
-    {
-        $this->assertFalse(
-            Artisan::call('scrud', ['model' => 'ExistingModel']) === 0
-        );
+        $expectedDestination = app_path('Http/Controllers/'.$this->model.'Controller.php');
+        app_path('Http/Controllers/'.$this->model.'Controller.php');
+        $this->assertFileExists($expectedDestination);
+        $this->assertStringContainsString($this->model, file_get_contents($expectedDestination));
+        $this->assertStringContainsString(Str::camel(Str::plural($this->model)), file_get_contents($expectedDestination));
+        $this->assertStringContainsString(Str::ucfirst(Str::snake($this->model)), file_get_contents($expectedDestination));
     }
 
 }

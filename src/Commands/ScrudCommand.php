@@ -25,6 +25,7 @@ class ScrudCommand extends Command
         }
 
         $this->insertRoute();
+        $this->generateController();
 
         return self::SUCCESS;
     }
@@ -105,5 +106,43 @@ class ScrudCommand extends Command
                     . "', App\\Http\\Controllers\\" 
                     . $this->controllerName . "::class);\n";
         File::put($path, $content);
+    }
+
+
+    /**
+     * Generate the controller
+     * 
+     * @return void
+     */
+    public function generateController()
+    {
+        $stub = __DIR__.'/../../app/Http/Controllers/ScrudController.php.stub';
+        $destination = app_path('Http/Controllers/'. $this->controllerName .'.php');
+
+        $this->processAndPublishStub($stub, $destination);
+    }
+
+
+    /**
+     * Replace the placeholders in the stub with the actual values
+     * 
+     * @param string $source
+     * @param string $destination
+     * @return void
+     */
+    public function processAndPublishStub($source, $destination)
+    {
+        $contents = file_get_contents($source);
+        $contents = str_replace(
+            ['{{modelName}}', '{{modelNameCamel}}', '{{modelNameCapitalized}}'],
+            [
+                $this->modelName,
+                Str::camel(Str::plural($this->modelName)),
+                Str::ucfirst(Str::snake($this->modelName))
+            ],
+            $contents
+        );
+
+        file_put_contents($destination, $contents);
     }
 }
