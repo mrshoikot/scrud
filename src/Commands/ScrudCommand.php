@@ -38,6 +38,8 @@ class ScrudCommand extends Command
         $this->generateMigration();
         $this->generateViewFiles();
 
+        $this->info($this->modelName.' CRUD generated successfully!');
+
         return self::SUCCESS;
     }
 
@@ -87,6 +89,7 @@ class ScrudCommand extends Command
             return false;
         }
 
+        $this->info('All good! Proceeding with the generation of the files...');
         return true;
     }
 

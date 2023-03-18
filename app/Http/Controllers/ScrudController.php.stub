@@ -16,7 +16,7 @@ class {{modelName}}Controller extends Controller
     public function index()
     {
         ${{modelNameCamel}} = {{modelName}}::all();
-        return view('scrud.{{tableName}}.index', compact('{{modelNameCamel}}'));
+        return view('{{tableName}}.index', compact('{{modelNameCamel}}'));
     }
 
 
@@ -27,7 +27,7 @@ class {{modelName}}Controller extends Controller
      */
     public function create()
     {
-        return view('scrud.{{tableName}}.create');
+        return view('{{tableName}}.create');
     }
 
 
@@ -52,7 +52,7 @@ class {{modelName}}Controller extends Controller
      */
     public function show({{modelName}} ${{modelNameCamelSingular}})
     {
-        return view('scrud.{{tableName}}.show', compact('{{modelNameCamelSingular}}'));
+        return view('{{tableName}}.show', compact('{{modelNameCamelSingular}}'));
     }
 
 
@@ -64,7 +64,7 @@ class {{modelName}}Controller extends Controller
      */
     public function edit({{modelName}} ${{modelNameCamelSingular}})
     {
-        return view('scrud.{{tableName}}.edit', compact('{{modelNameCamelSingular}}'));
+        return view('{{tableName}}.edit', compact('{{modelNameCamelSingular}}'));
     }
 
 
@@ -83,14 +83,14 @@ class {{modelName}}Controller extends Controller
     
 
     /**
-     * Remove the specified {{modelNameCamel}} from storage.
+     * Remove the specified {{modelNameCamelSingular}} from storage.
      * 
-     * @param  \App\Models\{{modelName}}  ${{modelNameCamel}}
+     * @param  \App\Models\{{modelName}}  ${{modelNameCamelSingular}}
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy({{modelName}} ${{modelNameCamel}})
+    public function destroy({{modelName}} ${{modelNameCamelSingular}})
     {
-        ${{modelNameCamel}}->delete();
+        ${{modelNameCamelSingular}}->delete();
         return redirect()->route('{{tableName}}.index')->with('success', '{{modelNameCapitalized}} deleted successfully!');
     }
 }
