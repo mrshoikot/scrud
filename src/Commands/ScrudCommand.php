@@ -24,6 +24,8 @@ class ScrudCommand extends Command
             return self::FAILURE;
         }
 
+        $this->insertRoute();
+
         return self::SUCCESS;
     }
 
@@ -80,5 +82,28 @@ class ScrudCommand extends Command
         }
 
         return true;
+    }
+
+
+    /**
+     * Insert the route for the resource in the web.php file
+     * 
+     * @return void
+     */
+    protected function insertRoute()
+    {
+        $path = base_path('routes/web.php');
+
+        // Create web.php if doens't exist (primariliy for testing)
+        if(!is_file($path)){
+            $contents = '<?php'.PHP_EOL;
+            file_put_contents($path, $contents);
+        }
+
+        $content = File::get($path);
+        $content .= "\nRoute::resource('" . Str::snake(Str::plural($this->modelName))
+                    . "', App\\Http\\Controllers\\" 
+                    . $this->controllerName . "::class);\n";
+        File::put($path, $content);
     }
 }
