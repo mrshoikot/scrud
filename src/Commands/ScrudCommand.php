@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 class ScrudCommand extends Command
 {
@@ -160,7 +161,9 @@ class ScrudCommand extends Command
         $stub = __DIR__.'/../../database/migrations/create_scrud_table.php.stub';
         $destination = database_path('migrations/'.date('Y_m_d_His').'_create_'.$this->tableName.'_table.php');
 
+        
         $this->processAndPublishStub($stub, $destination);
+        Artisan::call('migrate', ['--path' => 'database/migrations/' . basename($destination)]);
     }
 
 

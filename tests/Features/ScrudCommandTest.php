@@ -38,6 +38,10 @@ class ScrudCommandTest extends TestCase
             File::delete($migration);
         }
 
+        // Reset database migrations
+        Artisan::call('migrate:reset');
+
+        // Make the call to the command
         Artisan::call('scrud', ['model' => $this->model]);
     }
 
@@ -110,6 +114,17 @@ class ScrudCommandTest extends TestCase
         } else {
             $this->fail();
         }
+    }
+
+    /**
+     * Test if table is generated
+     * 
+     * @return void
+     */
+    public function testGenerateTable()
+    {
+        $tableName = Str::plural(Str::snake($this->model));
+        $this->assertTrue(\Schema::hasTable($tableName));
     }
 
 
