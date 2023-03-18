@@ -69,4 +69,17 @@ class ScrudCommandTest extends TestCase
         $this->assertStringContainsString($this->model, file_get_contents($expectedDestination));
     }
 
+
+    /**
+     * Test if the model is generated correctly
+     * 
+     * @return void
+     */
+    public function testGenerateModel()
+    {
+        $expectedDestination = app_path('Models/'.$this->model.'.php');
+        $this->assertFileExists($expectedDestination);
+        $this->assertStringContainsString($this->model, file_get_contents($expectedDestination));
+    }
+
 }
