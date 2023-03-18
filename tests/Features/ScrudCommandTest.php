@@ -112,10 +112,9 @@ class ScrudCommandTest extends TestCase
         }
     }
 
-
     /**
      * Test if view files are generated correctly
-     * 
+     *
      * @return void
      */
     public function testGenerateViewFiles()
@@ -126,7 +125,7 @@ class ScrudCommandTest extends TestCase
             'edit.blade.php',
             'show.blade.php',
             'form.blade.php',
-            'layout.blade.php'
+            'layout.blade.php',
         ];
 
         foreach ($viewFiles as $viewFile) {
