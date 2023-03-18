@@ -169,7 +169,6 @@ class ScrudCommand extends Command
         Artisan::call('migrate', ['--path' => 'database/migrations/' . basename($destination)]);
     }
 
-
     /**
      * Generate the view files
      *
@@ -181,13 +180,10 @@ class ScrudCommand extends Command
         $stubs = File::glob(__DIR__.'/../../resources/views/*');
 
         foreach ($stubs as $stub) {
-            $destination = resource_path('views/'.Str::snake(Str::plural($this->modelName)).'/'.basename($stub, ".stub").'.blade.php');
+            $destination = resource_path('views/'.Str::snake(Str::plural($this->modelName)).'/'.basename($stub, '.stub').'.blade.php');
             $this->processAndPublishStub($stub, $destination);
         }
-
     }
-
-
 
     /**
      * Replace the placeholders in the stub with the actual values
