@@ -35,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mrshoikot\\Scrud\\": "src",
-            "Mrshoikot\\Scrud\\Database\\Factories\\": "database/factories"
+            "Mrshoikot\\Scrud\\": "src"
         }
     },
     "autoload-dev": {
@@ -64,7 +63,7 @@
                 "Mrshoikot\\Scrud\\ScrudServiceProvider"
             ],
             "aliases": {
-                "Scrud": "Mrshoikot\\Scrud\\Facades\\Scrud"
+                
             }
         }
     },

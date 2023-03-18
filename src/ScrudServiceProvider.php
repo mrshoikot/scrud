@@ -17,9 +17,6 @@ class ScrudServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('scrud')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_scrud_table')
             ->hasCommand(ScrudCommand::class);
     }
 }
