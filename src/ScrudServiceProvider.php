@@ -2,9 +2,9 @@
 
 namespace Mrshoikot\Scrud;
 
+use Mrshoikot\Scrud\Commands\ScrudCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Mrshoikot\Scrud\Commands\ScrudCommand;
 
 class ScrudServiceProvider extends PackageServiceProvider
 {
