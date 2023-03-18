@@ -26,6 +26,7 @@ class ScrudCommand extends Command
 
         $this->insertRoute();
         $this->generateController();
+        $this->generateRequest();
 
         return self::SUCCESS;
     }
@@ -118,6 +119,20 @@ class ScrudCommand extends Command
     {
         $stub = __DIR__.'/../../app/Http/Controllers/ScrudController.php.stub';
         $destination = app_path('Http/Controllers/'. $this->controllerName .'.php');
+
+        $this->processAndPublishStub($stub, $destination);
+    }
+
+
+    /**
+     * Generate the request
+     * 
+     * @return void
+     */
+    public function generateRequest()
+    {
+        $stub = __DIR__.'/../../app/Http/Requests/ScrudRequest.php.stub';
+        $destination = app_path('Http/Requests/'. $this->requestName .'.php');
 
         $this->processAndPublishStub($stub, $destination);
     }
