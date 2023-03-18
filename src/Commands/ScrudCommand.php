@@ -140,7 +140,7 @@ class ScrudCommand extends Command
         if (! File::isDirectory(app_path('Http/Requests'))) {
             File::makeDirectory(app_path('Http/Requests'));
         }
-        
+
         $stub = __DIR__.'/../../app/Http/Requests/ScrudRequest.php.stub';
         $destination = app_path('Http/Requests/'.$this->requestName.'.php');
 
