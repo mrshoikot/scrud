@@ -28,6 +28,7 @@ class ScrudCommand extends Command
         $this->generateController();
         $this->generateRequest();
         $this->generateModel();
+        $this->generateMigration();
 
         return self::SUCCESS;
     }
@@ -154,6 +155,19 @@ class ScrudCommand extends Command
 
 
     /**
+     * Generate the migration
+     * 
+     * @return void
+     */
+    public function generateMigration()
+    {
+        $stub = __DIR__.'/../../database/migrations/create_scrud_table.php.stub';
+        $destination = database_path('migrations/'. date('Y_m_d_His') .'_create_'. $this->tableName .'_table.php');
+
+        $this->processAndPublishStub($stub, $destination);
+    }
+
+    /**
      * Replace the placeholders in the stub with the actual values
      * 
      * @param string $source
@@ -164,11 +178,17 @@ class ScrudCommand extends Command
     {
         $contents = file_get_contents($source);
         $contents = str_replace(
-            ['{{modelName}}', '{{modelNameCamel}}', '{{modelNameCapitalized}}'],
+            [
+                '{{modelName}}',
+                '{{modelNameCamel}}',
+                '{{modelNameCapitalized}}',
+                '{{tableName}}'
+            ],
             [
                 $this->modelName,
                 Str::camel(Str::plural($this->modelName)),
-                Str::ucfirst(Str::snake($this->modelName))
+                Str::ucfirst(Str::snake($this->modelName)),
+                $this->tableName
             ],
             $contents
         );

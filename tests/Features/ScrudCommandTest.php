@@ -15,15 +15,28 @@ class ScrudCommandTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Name of the model to be generated
         $this->model = 'ScrudTestModel';
 
+        // Create Requests directory if it doesn't exist (necessary for testbench)
         if (!File::isDirectory(app_path("Http/Requests"))) {
             File::makeDirectory(app_path("Http/Requests"));
         }
 
+        // Delete existing files for this model
         File::delete(app_path("Models/".$this->model.".php"));
         File::delete(app_path("Http/Controllers/".$this->model."Controller.php"));
         File::delete(app_path("Http/Requests/".$this->model."Request.php"));
+
+        // Find all existing migrations for the model and delete them
+        $migrations = File::glob(
+            database_path("migrations/*create_".Str::plural(Str::snake($this->model))."_table.php")
+        );
+
+        foreach ($migrations as $migration) {
+            File::delete($migration);
+        }
 
         Artisan::call('scrud', ['model' => $this->model]);
 
@@ -80,6 +93,29 @@ class ScrudCommandTest extends TestCase
         $expectedDestination = app_path('Models/'.$this->model.'.php');
         $this->assertFileExists($expectedDestination);
         $this->assertStringContainsString($this->model, file_get_contents($expectedDestination));
+    }
+
+
+    /**
+     * Test if the migration is generated correctly
+     * 
+     * @return void
+     */
+    public function testGenerateMigration()
+    {
+        $tableName = Str::plural(Str::snake($this->model));
+        $migration_file = File::glob(
+            database_path(
+                'migrations/*create_' . $tableName . '_table.php'
+            )
+        );
+        
+        if ($migration_file) {
+            $this->assertFileExists($migration_file[0]);
+            $this->assertStringContainsString($tableName, file_get_contents($migration_file[0]));
+        } else {
+            $this->fail();
+        }
     }
 
 }
